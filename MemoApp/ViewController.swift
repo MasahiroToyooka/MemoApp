@@ -19,15 +19,30 @@ class ViewController: UIViewController, UITextViewDelegate{
         // textViewがUITextViewDelegateを使えるようにします。
         textView.delegate = self
         
-        //Appdelegateを参照するための定数
+        // Appdelegateを参照するための定数
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         
         // AppDelegateに定義したlastTextを参照し、textViewに格納する。
         textView.text = appDelegate.lastText
     }
 
-    //テキストが変更されたら呼ばれる
+    
+    // MARK: - function
+    
+    // 削除ボタン
+    @IBAction func deleteButton(_ sender: Any) {
+        //ボタンを押したときにテキストを空にする
+        textView.text = ""
+        saveText()
+    }
+    
+    // テキストが変更されたら呼ばれる
     func textViewDidChange(_ textView: UITextView) {
+        saveText()
+    }
+
+    // テキストを保存する関数
+    fileprivate func saveText() {
         // AppDelegateを呼び出して変数に格納します。
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         
